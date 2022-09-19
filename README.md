@@ -9,9 +9,9 @@ to be completed later
 ### download data
 YOLOOP performs extremely efficient loop detection across contact maps obtained with various sequencing protocols and various cell lines. All of the datasets (ie contact maps and loop annotations) are in the public domain. Their source and access number are listed in the Supplementary of our paper. In the meanwhile, please also feel free to use any of your own datasets!
 
-YOLOOP supports the currently most commonly used two file formats of contact maps, namely mcool and hic. For a better performance, we suggest use mcool over hic for less memory IO overhead. If only hic format is available, you may also check out this tool to convert it from hic to mcool.
+YOLOOP supports the two currently most commonly used two file formats of contact maps, namely mcool and hic. For a better performance, we suggest use mcool over hic for less memory IO overhead. If only hic format is available, you may also check out this tool to convert it from hic to mcool.
 
-In the following tutorial, we will use the [HUVEC dataset]https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63525 downloaded from GEO with access number GSE63525.
+In the following tutorial, we will use the [HUVEC dataset](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63525) downloaded from GEO with access number GSE63525.
 
 After downloading the dataset, you may modify the path to the .hic and .bedpe files in dataloader.json.
 
