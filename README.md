@@ -1,9 +1,9 @@
-# YOLOOP: YOLO for chromatin LOOP detection
-# -- an efficient and robust approach
+# YOLOOP: YOLO for chromatin LOOP detection - an efficient and robust approach
 
 
 ## Installation
 
+to be completed later
 
 ## Use YOLOOP for chromatin loop detection
 ### download data
@@ -15,7 +15,7 @@ In the following tutorial, we will use the [HUVEC dataset]https://www.ncbi.nlm.n
 
 After downloading the dataset, you may modify the path to the .hic and .bedpe files in dataloader.json.
 
-## train a model from scratch
+### train a model from scratch
 
 to be finished tomorrow
 
