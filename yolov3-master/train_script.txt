@@ -1,0 +1,20 @@
+
+#GM12878
+python train.py --img=512 --adam --batch=8 --epoch=100 --data=hic-gm12878.yaml --project='hic-gm12878-runs/train'
+
+
+#K562
+python train.py --img=512 --adam --batch=8 --epoch=100 --data=hic-k562.yaml --project='hic-k562-runs/train'
+
+# Hap1
+python train.py --img=512 --adam --batch=8 --epoch=100 --data=hic-hap1.yaml --project='hic-hap1-runs/train'
+
+# H1esc
+python train.py --img=512 --adam --batch=8 --epoch=100 --data=hic-h1esc.yaml --project='hic-hap1-runs/train'
+
+
+
+
+
+
+
