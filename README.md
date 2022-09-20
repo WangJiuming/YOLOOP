@@ -26,6 +26,21 @@ cd YOLOOP
 
 Now, you are ready to use YOLOOP!
 
+## Use YOLOOP for chromatin loop detection
+### download the pretrained model checkpoint
+
+To help users conveniently use our model, we offer a variety of pretrained model checkpoints optimized on different datasets. You may download the checkpoint of interest directly [here](https://drive.google.com/drive/folders/1yyqtltWRwDi-YRTHjii7hD1W08XiUevf?usp=sharing), which will save the user tremendous amount of time by avoiding training the model from scratch. 
+
+### genome-wide chromatin loop detection with YOLOOP
+
+After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP.
+
+(to be finished later)
+
+### analyze the prediction results
+
+The output format of the prediction results is as follows.
+
 ## Train YOLOOP from scratch
 ### download data
 YOLOOP performs extremely efficient loop detection across contact maps obtained with various sequencing protocols and various cell lines. All of the datasets (ie contact maps and loop annotations) are in the public domain. Their source and access number are listed in the Supplementary of our paper. In the meanwhile, please also feel free to use any of your own datasets!
@@ -39,17 +54,6 @@ After downloading the dataset, you may modify the path to the .hic and .bedpe fi
 ### pre-process the training data
 
 TBC
-
-## Use YOLOOP for chromatin loop detection
-### download the pretrained model checkpoint
-
-To help users conveniently use our model, we offer a variety of pretrained model checkpoints optimized on different datasets. You may download the checkpoint of interest directly [here](https://drive.google.com/drive/folders/1yyqtltWRwDi-YRTHjii7hD1W08XiUevf?usp=sharing), which will save the user tremendous amount of time by avoiding training the model from scratch. 
-
-### genome-wide chromatin loop detection with YOLOOP
-
-After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP.
-
-(to be finished later)
 
 procedure:
 1. modify the path to .hic and .bedpe files in dataloader.json
