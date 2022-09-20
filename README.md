@@ -15,10 +15,13 @@ Then, activate the environment as usual. The name of the virtual environment is 
 conda activate yoloop
 ```
 
-After installing all the packages successfully, you may proceed to download the code directly from GitHub.
+After installing all the packages successfully, you may proceed to download the code directly from GitHub followed by moving to the working directory.
 
 ```bash
 git clone https://github.com/WangJiuming/YOLOOP.git
+```
+```bach
+cd YOLOOP
 ```
 
 Now, you are ready to use YOLOOP!
