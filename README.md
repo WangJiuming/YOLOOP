@@ -44,13 +44,13 @@ To help users conveniently use our model, we offer a variety of pretrained model
 
 After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP.
 
-First, we need to configure the hyperparameters for the model in data.json. Specifically, we need to customize the path to the dataset.
+First, you need to configure the hyperparameters for the model in data.json. Specifically, you need to customize the path to the dataset.
 ```bach
 python config.py -detect <path_to_contact_map>
 ```
 For detection (with the -detect flag), the path to loop annotations is not required.
 
-Then, we are ready to call the detection procedure. The standard calling would be as the following.
+Then, you are ready to call the detection procedure. The standard calling would be as the following.
 ```bach
 python detect.py --device cuda --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> 
 ```
