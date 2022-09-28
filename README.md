@@ -42,20 +42,12 @@ To help users conveniently use our model, we offer a variety of pretrained model
 
 ### genome-wide chromatin loop detection with YOLOOP
 
-After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP.
-
-First, you need to configure the hyperparameters for the model in data.json. Specifically, you need to customize the path to the dataset.
-```python
-python config.py -detect <path_to_contact_map>
-```
-For detection (with the -detect flag), the path to loop annotations is not required.
-
-Then, you are ready to call the detection procedure. The standard calling would be as the following.
+After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP by calling the detection procedure. A standard calling would be as the following.
 ```python
 python detect.py --device cuda --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> 
 ```
 We strongly suggest use cuda for a much better performance.
-Besides setting the paths, here are also a few hyperparameters that we may tune. A complete configuration of the procedure would be as follows.
+Besides setting the paths, here are also several hyperparameters that we may tune. A complete configuration of the procedure would be as follows.
 ```python
 python detect.py --device cuda --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> --window 256 --threshold 0.5
 ```
