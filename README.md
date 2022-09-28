@@ -3,25 +3,25 @@
 
 ## Installation
 
-First, install the prerequisite packages from the yoloop-spec.yml, which specifies the required packages for using YOLOOP. We suggest use anaconda for installing the dependencies into a virtual environment.
-
-```bash
-conda create -f env-spec.yml
-```
-
-Then, activate the environment as usual. The name of the virtual environment is "yoloop" by default.
-
-```bash
-conda activate yoloop
-```
-
-After installing all the packages successfully, you may proceed to download the code directly from GitHub followed by moving to the working directory.
+First, download the code directly from GitHub followed by moving to the working directory.
 
 ```bash
 git clone https://github.com/WangJiuming/YOLOOP.git
 ```
 ```bash
 cd YOLOOP
+```
+
+Then, install the prerequisite packages from the yoloop-spec.yml, which specifies the required packages for using YOLOOP. We suggest use anaconda for installing the dependencies into a virtual environment.
+
+```bash
+conda create --name yoloop --file env-spec.txt
+```
+
+After installing all the packages successfully, you may proceed to activate the environment as usual. The name of the virtual environment is "yoloop".
+
+```bash
+conda activate yoloop
 ```
 
 Now, you are ready to use YOLOOP!
