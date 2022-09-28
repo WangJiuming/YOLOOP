@@ -78,6 +78,17 @@ python visualize.py --map <path_to_contact_map> --loop <path_to_chr_loop> --thre
 
 The visualize.py program requires several command line arguments. Besides paths to the contact map file (.cool or .mcool) and the loop prediction file (.bedpe), users may also threshold the loops based on the prediction confidence level. For example, using the command line above, the program will plot the region on chromosome 1 from 210,000,000 to 212,000,000 under resolution 10kb. The output is shown below.
 
+<img src="https://github.com/WangJiuming/YOLOOP/blob/main/images/pred.png" width="500">
 
+For comparison between ground truth labels and predictions, simply set the compare flag in the visualize.py program to be True (which, by default, is False).
+
+```python
+python visualize.py --compare 1 --map <path_to_contact_map> --labels <path_to_labels> --preds <path_to_predictions> --threshold 0.5 --chr 1 --start 210000000 --end 212000000 --resolution 10000
+```
+The ground truth labels and the model's predictions will be shown on each side of the diagnol for easy comparison. The result of the above command is shown here.
+
+<img src="https://github.com/WangJiuming/YOLOOP/blob/main/images/compare.png" width="500">
+
+The black circles in upper-right part of the image represents predictions, while the yellow circles in the lower-left part represents the labels. As is shown, YOLOOP can accurately recover the ground truth chromatin loops.
 
 ## Cite us
