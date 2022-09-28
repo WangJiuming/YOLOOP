@@ -73,10 +73,11 @@ The above example consists of seven columns. The first three columns indicate th
 To further understand the prediction results, we offer a convenient visualization tool to visualize the prediction results by mapping the loops back to the contact map. To use the program, simply use the following command.
 
 ```python
-python visualize.py --map <path_to_contact_map> --loop <path_to_chr_loop> --threshold 0.5 --chr 1 --x_start 21000 --y_start 21000 --window 100 --resolution 10000
+python visualize.py --map <path_to_contact_map> --loop <path_to_chr_loop> --threshold 0.5 --chr 1 --start 210000000 --end 212000000 --resolution 10000
 ```
 
-The visualize.py program requires several command line arguments. Besides paths to the contact map file (.cool or .mcool) and the loop prediction file (.bedpe), users may also threshold the loops based on the prediction confidence level. For example, using the command line above, the program will plot the region on chromosome 1 from 210,000,000 to 211,000,000 under resolution 10kb. The output is shown below.
+The visualize.py program requires several command line arguments. Besides paths to the contact map file (.cool or .mcool) and the loop prediction file (.bedpe), users may also threshold the loops based on the prediction confidence level. For example, using the command line above, the program will plot the region on chromosome 1 from 210,000,000 to 212,000,000 under resolution 10kb. The output is shown below.
+
 
 
 ## Cite us
