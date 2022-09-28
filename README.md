@@ -20,7 +20,7 @@ After installing all the packages successfully, you may proceed to download the 
 ```bash
 git clone https://github.com/WangJiuming/YOLOOP.git
 ```
-```bach
+```bash
 cd YOLOOP
 ```
 
@@ -45,28 +45,38 @@ To help users conveniently use our model, we offer a variety of pretrained model
 After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP.
 
 First, you need to configure the hyperparameters for the model in data.json. Specifically, you need to customize the path to the dataset.
-```bach
+```bash
 python config.py -detect <path_to_contact_map>
 ```
 For detection (with the -detect flag), the path to loop annotations is not required.
 
 Then, you are ready to call the detection procedure. The standard calling would be as the following.
-```bach
+```bash
 python detect.py --device cuda --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> 
 ```
 We strongly suggest use cuda for a much better performance.
 Besides setting the paths, here are also a few hyperparameters that we may tune. A complete configuration of the procedure would be as follows.
-```bach
+```bash
 python detect.py --device cuda --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> --window 256 --threshold 0.5
 ```
 
 ### analyze the prediction results
 
-After the detection is complete, the results will be saved in a .bedpe file in the specified directory. The output format of the prediction results is as follows.
+After the detection is complete, the results will be saved in a .bedpe file in the specified directory. An example of the prediction results is as follows.
 
-[example here]
+```
+chr1	610000	620000	chr1	37880000	37890000	0.760546875
+```
 
+The above example consists of seven columns. The first three columns indicate the x-coordiante of the loop and the following three columns indicate the y-coordinate. The last column shows the confidence level of the prediction.
 
+To further understand the prediction results, we offer a convenient visualization tool to visualize the prediction results by mapping the loops back to the contact map. To use the program, simply use the following command.
+
+```bash
+python visualize.py --map <path_to_contact_map> --loop <path_to_chr_loop> --threshold 0.5 --chr 1 --x_start 21000 --y_start 21000 --window 100 --resolution 10000
+```
+
+The visualize.py program requires several command line arguments. Besides paths to the contact map file (.cool or .mcool) and the loop prediction file (.bedpe), users may also threshold the loops based on the prediction confidence level. For example, using the command line above, the program will plot the region on chromosome 1 from 210,000,000 to 211,000,000 under resolution 10kb. The output is shown below.
 
 ## Train YOLOOP from scratch
 
