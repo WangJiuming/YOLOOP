@@ -4,75 +4,7 @@ import cooler
 import argparse
 
 from data import load_loops, load_contact_map
-
-
-def show(mat):
-    """visualize a contact map"""
-    figure = plt.figure(figsize=(10, 10))
-    axes = figure.add_subplot(111)
-    caxes = axes.matshow(np.log10(mat), cmap='Reds')
-    plt.show()
-
-
-def show_loop(mat, loops, start, end, chr_num, resolution=10000):
-    """visualize a contact map together with loop predictions"""
-    # plot the contact map
-    figure = plt.figure(figsize=(10, 10))
-    axes = figure.add_subplot(111)
-    caxes = axes.matshow(np.log10(mat), cmap='Reds')
-
-    # add the loops
-    set_label = False
-    for loop in loops:
-        circle = plt.Circle(((loop[1]-start)/resolution, (loop[2]-start)/resolution), 1.5,
-                            color='black', fill=False, lw=1)
-        axes.add_patch(circle)
-        if not set_label:
-            circle.set_label('predictions')
-            set_label = True
-
-    # plt.show()
-    plt.legend()
-    plt.title(f'Chr {chr_num}: {start} to {end}\nresolution: {resolution}')
-    plt.axis('off')
-    plt.savefig('pred.png')
-
-
-def show_validate(mat, preds, labels, start, end, chr_num, resolution=10000):
-    # plot the contact map
-    figure = plt.figure(figsize=(10, 10))
-    axes = figure.add_subplot(111)
-    caxes = axes.matshow(np.log10(mat), cmap='Reds')
-
-    # remove symmetric loops in the loop lists
-    preds = [loop for loop in preds if loop[1] > loop[2]]  # upper-right
-    labels = [loop for loop in labels if loop[1] < loop[2]]  # lower-left
-
-    # add the predicted loops
-    set_label = False
-    for loop in preds:
-        pred_circle = plt.Circle(((loop[1]-start)/resolution, (loop[2]-start)/resolution), 1.5,
-                                 color='black', fill=False, lw=1.5)
-        axes.add_patch(pred_circle)
-        if not set_label:
-            pred_circle.set_label('predictions')
-            set_label = True
-
-    # add the ground truth loops
-    set_label = False
-    for loop in labels:
-        label_circle = plt.Circle(((loop[1]-start)/resolution, (loop[2]-start)/resolution), 1.5,
-                                  color='yellow', fill=False, lw=1.5)
-        axes.add_patch(label_circle)
-        if not set_label:
-            label_circle.set_label('labels')
-            set_label = True
-
-    # plt.show()
-    plt.legend()
-    plt.title(f'Chr {chr_num}: {start} to {end}\nresolution: {resolution}')
-    plt.axis('off')
-    plt.savefig('compare.png')
+from utils.visualize_utils import show, show_loop, show_compare
 
 
 if __name__ == '__main__':
@@ -94,12 +26,12 @@ if __name__ == '__main__':
 
     if int(args.compare):
         if args.labels == '' or args.preds == '':
-            raise Exception('MissingArguments: both labels and predictions need to be provided for comparison')
+            raise Exception('Missing Arguments: both labels and predictions need to be provided for comparison')
         labels = load_loops(args.labels, args.chr_num, int(args.start), int(args.end))
         preds = load_loops(args.preds, args.chr_num, int(args.start), int(args.end))
-        show_validate(contact_map, preds, labels, int(args.start), int(args.end), args.chr_num, int(args.resolution))
+        show_compare(contact_map, preds, labels, int(args.start), int(args.end), args.chr_num, int(args.resolution))
     else:
         if args.preds == '':
-            raise Exception('MissingArguments: predictions need to be provided for plotting')
+            raise Exception('Missing Arguments: predictions need to be provided for plotting')
         loops = load_loops(args.preds, args.chr_num, int(args.start), int(args.end))
         show_loop(contact_map, loops, int(args.start), int(args.end), args.chr_num, int(args.resolution))
