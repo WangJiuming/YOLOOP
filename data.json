@@ -1,7 +1,0 @@
-{
-  "hic_path":       "/Dataset/HiC/hic/odc/hic-odc.mcool",
-  "loop_path":      "/Dataset/HiC/hic/odc/hic-odc-loop.bedpe",
-  "resolution":     10000,
-  "window_size":    512,
-  "box_size":       10
-}
