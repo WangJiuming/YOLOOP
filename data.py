@@ -1,7 +1,8 @@
-import os
 import numpy as np
+from PIL import Image
 import json
 import argparse
+import os
 from tqdm.auto import tqdm
 
 from utils.data_utils import load_loops, load_contact_map
@@ -15,21 +16,20 @@ if __name__ == '__main__':
     parser.add_argument('--chr_num', default='1', help='which chromosome to use')
     parser.add_argument('--window', default=512, help='windows size (unit: resolution)')
     parser.add_argument('--box', default=10, help='bounding box size (unit: resolution)')
+    parser.add_argument('--split', default=18, help='train-val-split, how many chromosomes of 22 autosomes '
+                                                    'are used to train the model')
     parser.add_argument('--resolution', default=10000, help='resolution')
     args = parser.parse_args()
-
-    # define parameters
-    protocols = ['hic', 'chiapet', 'hichip', 'dna-sprite']
-    cells = ['gm12878', 'k562', 'hap1', 'h1esc']
 
     map_path = args.map
     loop_path = args.loop
 
+    train_val_split = int(args.split)
     resolution = int(args.resolution)
     window_size = int(args.window)
-    box_size = args['box_size']
+    box_size = int(args.box)
 
-    map_name = map_path.split('/')[-1]
+    map_name = map_path.train_val_split('/')[-1]
     out_dir = os.path.join(f'data/{map_name}')
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
@@ -41,9 +41,9 @@ if __name__ == '__main__':
         loops = load_loops(loop_path, str(i))
         loops_candidates = load_loops(loop_path, str(i))
 
-        print('=> loading {}'.format(map_path))
+        print(f'=> loading {map_path}')
         chr_matrix = load_contact_map(map_path, str(i))
-        print(f'matrix for chr{i} loaded, shape: {chr_matrix.shape}')
+        print(f'matrix for chr{i} loaded, shape: ({chr_matrix.shape[0]}, {chr_matrix.shjape[1]})')
 
         chr_start = 0
         chr_end = chr_matrix.shape[0] * resolution
@@ -90,11 +90,71 @@ if __name__ == '__main__':
             mat_data[k, :, :] = mat_list[k]
 
         # save the loop data and contact map
-        # np.save('{}/chr{}-loop.npy'.format(out_dir,i), np.array(loop_data), allow_pickle=True)
-        with open('{}/chr{}-loop.json'.format(out_dir, i), 'w') as outfile:
+        with open(f'{out_dir}/chr{i}-loop.json', 'w') as outfile:
             json.dump(loop_dic, outfile)
-        np.save('{}/chr{}-map.npy'.format(out_dir, i), mat_data, allow_pickle=True)
+        np.save(f'{out_dir}/chr{i}-map.npy', mat_data, allow_pickle=True)
 
-        print('chr{}: contact maps and loops saved'.format(i))
+        print(f'chr{i}: contact maps and loops saved')
 
-    print('data generation complete')
+    print('begin train-val split and data organization')
+
+    # creating directories for data organization
+    img_dir = f'{out_dir}/images'
+    label_dir = f'{out_dir}/labels'
+    if not os.path.exists(img_dir):
+        os.mkdir(img_dir)
+    if not os.path.exists(label_dir):
+        os.mkdir(label_dir)
+
+    if not os.path.exists(img_dir + '/train'):
+        os.mkdir(img_dir + '/train')
+    if not os.path.exists(img_dir + '/val'):
+        os.mkdir(img_dir + '/val')
+        if not os.path.exists(label_dir + '/train'):
+            os.mkdir(label_dir + '/train')
+            if not os.path.exists(label_dir + '/val'):
+                os.mkdir(label_dir + '/val')
+
+    sample_count = 0
+    for i in range(1, 23):
+        mats = np.load(f'{out_dir}/chr{i}-map.npy', allow_pickle=True)
+        loops = json.load(open(f'{out_dir}/chr{i}-loop.json'))[str(i)]
+        # print(f'contact map of size ({mat.shape[0]}, {mat.shape[1]}, {mat.shape[2]}) loaded from chr{i}')
+        print(f'contact map of size {mats.shape} loaded from chr{i}')
+        print(f'{len(loops)} loaded from chr{i}')
+
+        sample_num = mats.shape[0]
+        # for every cropped contact map window in this chromosome
+        for j in range(sample_num):
+            # the sample's contact map
+            map_img = Image.fromarray(mats[j])
+            map_array = np.array(map_img)
+            # the sample's loop list (positive labels)
+            img_loops = loops[j]
+            loop_num = len(img_loops)
+
+            if i < train_val_split:
+                # train set
+                split_dir = 'train'
+            else:
+                # validation set
+                split_dir = 'val'
+
+            map_img.convert('L').save(f'{out_dir}/images/{split_dir}/{sample_count:08}.png')
+            with open(f'{out_dir}/labels/train/{sample_count:08}.txt', 'w') as file:
+                # for every loop in this sample's contact map window
+                for k in range(0, loop_num):
+                    # class, x center, y center, width, height
+                    # N.B. reverse the order of x, y in numpy
+                    file.write(f'{0:<4}'  # class 0
+                               f'{img_loops[k][1] / window_size:<15}'  # x-coordinate
+                               f'{img_loops[k][0] / window_size:<15}'  # y-coordinate
+                               f'{box_size / window_size:<15}'  # width of the bounding box
+                               f'{box_size / window_size:<15}\n')  # height of the bounding box
+
+            sample_count += 1
+        print(f'chr{i} done')
+
+    print('data generation all done')
+    print('the data are now ready to be used for training the model')
+
