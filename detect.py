@@ -116,7 +116,7 @@ if __name__ == '__main__':
 
     print(f'using window size: {window_size}, {type(window_size)}, resolution: {resolution}, threshold: {threshold}')
 
-    map_name = map_path.train_val_split('/')[-1]
+    map_name = map_path.split('/')[-1]
     output_path = os.path.join(args.output, f'{map_name}-{window_size}')
 
     if not os.path.exists(os.path.dirname(output_path)):
