@@ -37,10 +37,13 @@ def sliding_window(grand_matrix, model, window_size=1024, conf_thresh=0.5):
     # N.B. reverse order of width and height from numpy array
     w, h = grand_matrix.shape[1], grand_matrix.shape[0]
     print(f'w={w}, h={h}, window_size={window_size}')
+    diag_limit = window_size * 5
 
     print('=> sliding through the matrix')
-    for y_offset in tqdm(np.arange(0, h - window_size + 1, window_size), position=1, desc='y-axis', leave=False):
+    for y_offset in tqdm(np.arange(0, h - window_size + 1, window_size), position=1, desc='y-axis', leave=True):
         for x_offset in tqdm(np.arange(0, w - window_size + 1, window_size), position=0, desc='x-axis', leave=False):
+            if abs(x_offset - y_offset) > diag_limit:
+                continue
 
             mat = grand_matrix[y_offset:(y_offset + window_size), x_offset:(x_offset + window_size)]
 
@@ -113,7 +116,7 @@ if __name__ == '__main__':
 
     print(f'using window size: {window_size}, {type(window_size)}, resolution: {resolution}, threshold: {threshold}')
 
-    map_name = map_path.split('/')[-1]
+    map_name = map_path.train_val_split('/')[-1]
     output_path = os.path.join(args.output, f'{map_name}-{window_size}')
 
     if not os.path.exists(os.path.dirname(output_path)):
