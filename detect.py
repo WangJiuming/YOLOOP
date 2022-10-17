@@ -40,7 +40,7 @@ def sliding_window(grand_matrix, model, window_size=1024, conf_thresh=0.5):
     diag_limit = window_size * 5
 
     print('=> sliding through the matrix')
-    for y_offset in np.arange(0, h - window_size + 1, window_size):
+    for y_offset in tqdm(np.arange(0, h - window_size + 1, window_size)):
         for x_offset in np.arange(0, w - window_size + 1, window_size):
             if abs(x_offset - y_offset) > diag_limit:
                 continue
@@ -115,8 +115,8 @@ if __name__ == '__main__':
 
     print(f'using window size: {window_size}, resolution: {resolution}, threshold: {threshold}')
 
-    map_name = map_path.split('/')[-1]
-    output_path = os.path.join(args.output, f'{map_name}-{window_size}')
+    map_name = map_path.split('/')[-1].split('.')[-2]
+    output_path = os.path.join(args.output, f'{map_name}-{resolution}')
 
     if not os.path.exists(os.path.dirname(output_path)):
         os.mkdir(os.path.dirname(output_path))
