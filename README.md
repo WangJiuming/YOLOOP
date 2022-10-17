@@ -83,4 +83,3 @@ The ground truth labels and the model's predictions will be shown on each side o
 
 The black circles in upper-right part of the image represents predictions, while the yellow circles in the lower-left part represents the labels. As is shown, YOLOOP can accurately recover the ground truth chromatin loops.
 
-## Cite us
