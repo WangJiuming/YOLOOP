@@ -40,8 +40,8 @@ def sliding_window(grand_matrix, model, window_size=1024, conf_thresh=0.5):
     diag_limit = window_size * 5
 
     print('=> sliding through the matrix')
-    for y_offset in tqdm(np.arange(0, h - window_size + 1, window_size), position=1, desc='y-axis', leave=True):
-        for x_offset in tqdm(np.arange(0, w - window_size + 1, window_size), position=0, desc='x-axis', leave=False):
+    for y_offset in np.arange(0, h - window_size + 1, window_size):
+        for x_offset in np.arange(0, w - window_size + 1, window_size):
             if abs(x_offset - y_offset) > diag_limit:
                 continue
 
