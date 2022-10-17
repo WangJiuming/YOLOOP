@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time     : 2022/4/17
-# @Author   : Wang Jiuming
-# @File     : detect.py
-# @Software : PyCharm
 import numpy as np
 from PIL import Image
 import argparse
