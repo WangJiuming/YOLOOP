@@ -44,12 +44,12 @@ To help users conveniently use our model, we offer a variety of pretrained model
 
 After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP by calling the detection procedure. A standard calling would be as the following.
 ```python
-python detect.py --device cuda --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> 
+python detect.py --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> 
 ```
-We strongly suggest use cuda for a much better performance.
+The program will detect cuda devices automatically, and we strongly suggest use cuda for a much better performance.
 Besides setting the paths, here are also several hyperparameters that we may tune. A complete configuration of the procedure would be as follows.
 ```python
-python detect.py --device cuda --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> --window 256 --threshold 0.5
+python detect.py --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> --window 256 --threshold 0.5
 ```
 
 ### analyze the prediction results
