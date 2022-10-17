@@ -101,7 +101,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='yolop_detection')
     parser.add_argument('--map', default='', help='hic file for loop detection')
     parser.add_argument('--weight', default='', help='model weight path')
-    parser.add_argument('--device', default='cpu', help='use gpu with "cuda", default: cpu')
     parser.add_argument('--output', default='output', help='output path')
     parser.add_argument('--window', default=512, help='window size')
     parser.add_argument('--resolution', default=10000, help='resolution')
@@ -114,7 +113,7 @@ if __name__ == '__main__':
     resolution = int(args.resolution)
     threshold = float(args.threshold)
 
-    print(f'using window size: {window_size}, {type(window_size)}, resolution: {resolution}, threshold: {threshold}')
+    print(f'using window size: {window_size}, resolution: {resolution}, threshold: {threshold}')
 
     map_name = map_path.split('/')[-1]
     output_path = os.path.join(args.output, f'{map_name}-{window_size}')
@@ -127,7 +126,13 @@ if __name__ == '__main__':
 
     # loading the contact map
     print(f'=> loading contact map:{map_path}')
-    raw_mat = cooler.Cooler(f'{map_path}::/resolutions/{resolution}')
+    if '.mcool' in map_path:
+        raw_mat = cooler.Cooler(f'{map_path}::/resolutions/{resolution}')
+    elif '.cool' in map_path:
+        raw_mat = cooler.Cooler(f'{map_path}')
+    else:
+        raise Exception('File Format Error: cannot recognize the input file format, please use a .cool or .mcool file')
+
     grand_matrix = raw_mat.matrix(balance=False)
 
     # load model
