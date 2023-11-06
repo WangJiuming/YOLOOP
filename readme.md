@@ -65,7 +65,7 @@ optional arguments:
   -m MODEL, --model MODEL   YOLOOP model checkpoint to be loaded
   --out OUT                 output directory for saving the prediction results
   -t THRESH, --thresh THRESH    threshold for the confidence score
-  --device DEVICE           device to be used, e.g., cuda, cuda:0, cpu```
+  --device DEVICE           device to be used, e.g., cuda, cuda:0, cpu
 ```
 
 ### Analyze the prediction results
