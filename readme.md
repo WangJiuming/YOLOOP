@@ -43,7 +43,8 @@ wget -P ./data https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/w
 
 ### Download the pre-trained model checkpoint
 
-To help users conveniently use our model, we offer a variety of pretrained model checkpoints optimized on different datasets. You may download the checkpoint of interest directly [here](https://drive.google.com/drive/folders/1yyqtltWRwDi-YRTHjii7hD1W08XiUevf?usp=sharing), which will save the user tremendous amount of time by avoiding training the model from scratch. The model was trained with a window size of 512 for 100 epochs.
+[//]: # (To help users conveniently use our model, we offer a variety of pretrained model checkpoints optimized on different datasets. You may download the checkpoint of interest directly [here]&#40;https://drive.google.com/drive/folders/1yyqtltWRwDi-YRTHjii7hD1W08XiUevf?usp=sharing&#41;, which will save the user tremendous amount of time by avoiding training the model from scratch. The model was trained with a window size of 512 for 100 epochs.)
+We have included one model checkpoint at ```./models/gm12878_hic_10kb.pt```. This model was pre-trained on the GM12878 Hi-C contact map with CTCF ChIA-PET interactions at 10kb resolution.
 
 ### Genome-wide chromatin loop detection with YOLOOP
 
