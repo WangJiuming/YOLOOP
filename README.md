@@ -27,7 +27,7 @@ conda activate yoloop
 Now, you are ready to use YOLOOP!
 
 ## Use YOLOOP for chromatin loop detection
-### download sample data
+### Download sample data
 YOLOOP performs extremely efficient loop detection across contact maps obtained with various sequencing protocols and from various cell lines. All the datasets (i.e., contact maps and loop annotations) are in the public domain. Their sources and access numbers are listed in the Supplementary Information of our paper. In the meanwhile, please also feel free to use any of your own datasets!
 
 YOLOOP supports one of the currently most commonly used file formats of contact maps, cooler. You can find more about it at its official [documentation](https://cooler.readthedocs.io/en/latest/index.html). For a better performance, we highly recommend use it for less memory IO overhead. If only hic format is available, you may also check out [this](https://github.com/4dn-dcic/hic2cool) very convenient tool to convert it from hic to cool.
@@ -36,11 +36,11 @@ In the following tutorial, we will use the [GM12878 dataset](https://data.4dnucl
 
 After downloading the dataset, you may modify the path to the .hic and .bedpe files in ```config.json```.
 
-### download the pretrained model checkpoint
+### Download the pretrained model checkpoint
 
 To help users conveniently use our model, we offer a variety of pretrained model checkpoints optimized on different datasets. You may download the checkpoint of interest directly [here](https://drive.google.com/drive/folders/1yyqtltWRwDi-YRTHjii7hD1W08XiUevf?usp=sharing), which will save the user tremendous amount of time by avoiding training the model from scratch. The model was trained with a window size of 512 for 100 epochs.
 
-### genome-wide chromatin loop detection with YOLOOP
+### Genome-wide chromatin loop detection with YOLOOP
 
 After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP by calling the detection procedure. A standard calling would be as the following.
 ```
@@ -65,7 +65,7 @@ optional arguments:
   --device DEVICE           device to be used, e.g., cuda, cuda:0, cpu```
 ```
 
-### analyze the prediction results
+### Analyze the prediction results
 
 After the detection is complete, the results will be saved in a .bedpe file in the specified directory. An example of the prediction results is as follows.
 
@@ -75,4 +75,4 @@ chr1	610000	620000	chr1	37880000	37890000	0.760546875
 
 The above example consists of seven columns. The first three columns indicate the x-coordiante of the loop and the following three columns indicate the y-coordinate. The last column shows the confidence level of the prediction.
 
-All code of our model will be released upon publication, including all the codes for training, evaluation and adaptive finetuning.
+The current version of our code is for a demo. All source materials to develop our model will be released upon publication, including all the codes and data for training, evaluation and adaptive finetuning.
