@@ -37,8 +37,6 @@ YOLOOP supports one of the currently most commonly used file formats of contact 
 
 In the following tutorial, we will use the [GM12878 dataset](https://data.4dnucleome.org/files-processed/4DNFIXP4QG5B/) downloaded from 4DN Portal with access number 4DNFIXP4QG5B.
 
-After downloading the dataset, you may modify the path to the .hic and .bedpe files in ```config.json```.
-
 ### Download the pretrained model checkpoint
 
 To help users conveniently use our model, we offer a variety of pretrained model checkpoints optimized on different datasets. You may download the checkpoint of interest directly [here](https://drive.google.com/drive/folders/1yyqtltWRwDi-YRTHjii7hD1W08XiUevf?usp=sharing), which will save the user tremendous amount of time by avoiding training the model from scratch. The model was trained with a window size of 512 for 100 epochs.
