@@ -36,15 +36,19 @@ YOLOOP performs extremely efficient loop detection across contact maps obtained 
 YOLOOP supports one of the currently most commonly used file formats of contact maps, cooler. You can find more about it at its official [documentation](https://cooler.readthedocs.io/en/latest/index.html). For a better performance, we highly recommend use it for less memory IO overhead. If only hic format is available, you may also check out [this](https://github.com/4dn-dcic/hic2cool) very convenient tool to convert it from hic to cool.
 
 In the following tutorial, we will use the [GM12878 dataset](https://data.4dnucleome.org/files-processed/4DNFIXP4QG5B/) downloaded from 4DN Portal with access number 4DNFIXP4QG5B.
+```bash
+mkdir -p data
+wget -P ./data https://4dn-open-data-public.s3.amazonaws.com/fourfront-webprod/wfoutput/d6abea45-b0bb-4154-9854-1d3075b98097/4DNFIXP4QG5B.mcool
+```
 
-### Download the pretrained model checkpoint
+### Download the pre-trained model checkpoint
 
 To help users conveniently use our model, we offer a variety of pretrained model checkpoints optimized on different datasets. You may download the checkpoint of interest directly [here](https://drive.google.com/drive/folders/1yyqtltWRwDi-YRTHjii7hD1W08XiUevf?usp=sharing), which will save the user tremendous amount of time by avoiding training the model from scratch. The model was trained with a window size of 512 for 100 epochs.
 
 ### Genome-wide chromatin loop detection with YOLOOP
 
 After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP by calling the detection procedure. A standard calling would be as the following.
-```
+```bash
 python detect.py --cm ./data/4DNFIXP4QG5B.mcool --r 10000 --model ./models/gm12878_hic_10kb.pt --ouput ./results 
 ```
 The program will detect cuda devices automatically, and we strongly suggest use cuda for a much better performance.
@@ -76,4 +80,4 @@ chr1	610000	620000	chr1	37880000	37890000	0.760546875
 
 The above example consists of seven columns. The first three columns indicate the x-coordiante of the loop and the following three columns indicate the y-coordinate. The last column shows the confidence level of the prediction.
 
-The current version of our code is for a demo to facilitate the review process. All source materials to develop our model will be released upon publication, including all the codes and data for training, evaluation and adaptive finetuning.
+Note: The current version of our code is for a demo to facilitate the review process. All source materials to develop our model will be released upon publication, including all the codes and data for pre-training, evaluation and adaptive fine-tuning.
