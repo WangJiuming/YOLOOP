@@ -2,7 +2,10 @@
 
 ![header](header.png)
 
-This is the code for YOLOOP.
+This is the open source code for YOLOOP. 
+
+Note: The current version of our code is for a demo to facilitate the review process. All source materials to develop our model will be released upon publication, including all the codes, data and models for pre-training, evaluation and adaptive fine-tuning.
+
 
 ## Installation
 
@@ -81,4 +84,3 @@ chr1	610000	620000	chr1	37880000	37890000	0.760546875
 
 The above example consists of seven columns. The first three columns indicate the x-coordiante of the loop and the following three columns indicate the y-coordinate. The last column shows the confidence level of the prediction.
 
-Note: The current version of our code is for a demo to facilitate the review process. All source materials to develop our model will be released upon publication, including all the codes and data for pre-training, evaluation and adaptive fine-tuning.
