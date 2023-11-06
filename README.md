@@ -44,12 +44,25 @@ To help users conveniently use our model, we offer a variety of pretrained model
 
 After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP by calling the detection procedure. A standard calling would be as the following.
 ```
-python detect.py --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> 
+python detect.py --cm ./data/4DNFIXP4QG5B.mcool --r 10000 --model ./models/gm12878_hic_10kb.pt --ouput ./results 
 ```
 The program will detect cuda devices automatically, and we strongly suggest use cuda for a much better performance.
 Besides setting the paths, here are also several hyperparameters that we may tune. A complete configuration of the procedure would be as follows.
 ```
-python detect.py --map <path_to_contact_map> --weight <path_to_model_checkpoint> --ouput <path_to_output_dir> --window 256 --threshold 0.5
+usage: detect.py [-h] [--cm CM] [-r RESOLUTION] [-b] [-m MODEL] [--out OUT]
+                 [-t THRESH] [--device DEVICE]
+
+YOLOOP for efficient chromatin loop detection
+
+optional arguments:
+  -h, --help                show this help message and exit
+  --cm CM                   path to the input contact matrix with .mcool/.cool extension
+  -r RESOLUTION, --resolution RESOLUTION    resolution of the contact matrix
+  -b, --balance             whether to use a balanced matrix or not
+  -m MODEL, --model MODEL   YOLOOP model checkpoint to be loaded
+  --out OUT                 output directory for saving the prediction results
+  -t THRESH, --thresh THRESH    threshold for the confidence score
+  --device DEVICE           device to be used, e.g., cuda, cuda:0, cpu```
 ```
 
 ### analyze the prediction results
@@ -62,24 +75,4 @@ chr1	610000	620000	chr1	37880000	37890000	0.760546875
 
 The above example consists of seven columns. The first three columns indicate the x-coordiante of the loop and the following three columns indicate the y-coordinate. The last column shows the confidence level of the prediction.
 
-To further understand the prediction results, we offer a convenient visualization tool to visualize the prediction results by mapping the loops back to the contact map. To use the program, simply use the following command.
-
-```
-python visualize.py --map <path_to_contact_map> --loop <path_to_chr_loop> --threshold 0.5 --chr 1 --start 210000000 --end 212000000 --resolution 10000
-```
-
-The visualize.py program requires several command line arguments. Besides paths to the contact map file (.cool or .mcool) and the loop prediction file (.bedpe), users may also threshold the loops based on the prediction confidence level. For example, using the command line above, the program will plot the region on chromosome 1 from 210,000,000 to 212,000,000 under resolution 10kb. The output is shown below.
-
-<img src="https://github.com/WangJiuming/YOLOOP/blob/main/images/pred.png" width="500">
-
-For comparison between ground truth labels and predictions, simply set the compare flag in the visualize.py program to be True (which, by default, is False).
-
-```
-python visualize.py --compare 1 --map <path_to_contact_map> --labels <path_to_labels> --preds <path_to_predictions> --threshold 0.5 --chr 1 --start 210000000 --end 212000000 --resolution 10000
-```
-The ground truth labels and the model's predictions will be shown on each side of the diagnol for easy comparison. The result of the above command is shown here.
-
-<img src="https://github.com/WangJiuming/YOLOOP/blob/main/images/compare.png" width="500">
-
-The black circles in upper-right part of the image represents predictions, while the yellow circles in the lower-left part represents the labels. As is shown, YOLOOP can accurately recover the ground truth chromatin loops.
-
+All code of our model will be released upon publication, including all the codes for training, evaluation and adaptive finetuning.
