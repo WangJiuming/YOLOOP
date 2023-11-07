@@ -21,9 +21,13 @@ cd YOLOOP
 Then, install the prerequisite packages from the ```environment.yml```, which specifies the required packages for using YOLOOP. We recommend use anaconda for installing the dependencies into a virtual environment.
 
 ```bash
-conda create --name yoloop --file environment.yml
+conda env create -f environment.yml
 ```
 
+Next, install pytorch based on your local environment configurations (see [PyTorch Installation Guide](https://pytorch.org/get-started/locally/)). Here, we install PyTorch with CUDA version 12.1 as an example.
+```bash
+pip3 install torch torchvision torchaudio
+```
 After installing all the packages successfully, you may proceed to activate the environment as usual. The name of the virtual environment is "yoloop".
 
 ```bash
@@ -53,7 +57,7 @@ We have included one model checkpoint at ```./models/gm12878_hic_10kb.pt```. Thi
 
 After obtaining the model checkpoint, you are ready to perform chromatin loop detection efficiently with YOLOOP by calling the detection procedure. A standard calling would be as the following.
 ```bash
-python detect.py --cm ./data/4DNFIXP4QG5B.mcool --r 10000 --model ./models/gm12878_hic_10kb.pt --ouput ./results 
+python detect.py --cm ./data/4DNFIXP4QG5B.mcool --r 10000 --model ./models/gm12878_hic_10kb.pt --out ./results 
 ```
 The program will detect cuda devices automatically, and we strongly suggest use cuda for a much better performance.
 Besides setting the paths, here are also several hyperparameters that we may tune. A complete configuration of the procedure would be as follows.
