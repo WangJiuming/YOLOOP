@@ -64,7 +64,9 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
 
             mat = cm[y_offset:y_offset + window_size, x_offset:x_offset + window_size]
 
+            sys.stdout = open(os.devnull, 'w')  # block verbose print by YOLOv8
             results = model(mat)[0]
+            sys.stdout = sys.__stdout__  # resume normal ouput messages
 
             for result in results:
                 coords = result.boxes.xyxy
