@@ -254,7 +254,7 @@ def non_max_suppression(
         if mps:
             output[xi] = output[xi].to(device)
         if (time.time() - t) > time_limit:
-            LOGGER.warning(f'WARNING ⚠️ NMS time limit {time_limit:.3f}s exceeded')
+            # LOGGER.warning(f'WARNING ⚠️ NMS time limit {time_limit:.3f}s exceeded')
             break  # time limit exceeded
 
     return output
