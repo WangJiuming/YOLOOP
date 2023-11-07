@@ -24,10 +24,8 @@ Then, install the prerequisite packages from the ```environment.yml```, which sp
 conda env create -f environment.yml
 ```
 
-Next, install pytorch based on your local environment configurations (see [PyTorch Installation Guide](https://pytorch.org/get-started/locally/)). Here, we install PyTorch with CUDA version 12.1 as an example.
-```bash
-pip3 install torch torchvision torchaudio
-```
+By default, we installed the latest PyTorch with CUDA version 12.1. If your local environment configurations is different, please install based on the [PyTorch Installation Guide](https://pytorch.org/get-started/locally/).
+
 After installing all the packages successfully, you may proceed to activate the environment as usual. The name of the virtual environment is "yoloop".
 
 ```bash
