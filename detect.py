@@ -4,7 +4,6 @@ from pathlib import Path
 import argparse
 
 import torch.cuda
-from tqdm import tqdm
 
 import numpy as np
 import cooler
@@ -56,7 +55,7 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
     diag_limit = window_size * 5
 
     print('[info] scanning the contact matrix')
-    for y_offset in tqdm(np.arange(0, h - window_size + 1, window_size)):
+    for y_offset in np.arange(0, h - window_size + 1, window_size):
         for x_offset in np.arange(0, w - window_size + 1, window_size):
             # skip the edges if restricting the detection to the diagonal parts only
             if restrict and abs(x_offset - y_offset) > diag_limit:
@@ -64,9 +63,7 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
 
             mat = cm[y_offset:y_offset + window_size, x_offset:x_offset + window_size]
 
-            sys.stdout = open(os.devnull, 'w')  # block verbose print by YOLOv8
             results = model(mat)[0]
-            sys.stdout = sys.__stdout__  # resume normal ouput messages
 
             for result in results:
                 coords = result.boxes.xyxy
