@@ -21,7 +21,7 @@ cd YOLOOP
 Then, install the prerequisite packages from the ```environment.yml```, which specifies the required packages for using YOLOOP. We recommend use anaconda for installing the dependencies into a virtual environment.
 
 ```bash
-conda env create -f environment.yml
+conda create -n yoloop -f environment.yml
 ```
 
 By default, we installed the latest PyTorch with CUDA version 12.1. If your local environment configurations is different, please install based on the [PyTorch Installation Guide](https://pytorch.org/get-started/locally/).
