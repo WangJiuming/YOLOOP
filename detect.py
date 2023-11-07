@@ -51,10 +51,17 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
 
     # reverse order of width and height from numpy array
     w, h = cm.shape[1], cm.shape[0]
-    print(f'[debug] width: {w}, height: {h}, window size: {window_size}')
+    print(f'[info] width: {w}, height: {h}, window size: {window_size}')
     diag_limit = window_size * 5
 
     print('[info] scanning the contact matrix')
+
+    # save the current stdout
+    orig_stdout = sys.stdout
+
+    # redirect stdout to null
+    sys.stdout = open(os.devnull, 'w')
+
     for y_offset in np.arange(0, h - window_size + 1, window_size):
         for x_offset in np.arange(0, w - window_size + 1, window_size):
             # skip the edges if restricting the detection to the diagonal parts only
@@ -63,7 +70,11 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
 
             mat = cm[y_offset:y_offset + window_size, x_offset:x_offset + window_size]
 
-            results = model(mat)[0]
+            try:
+                results = model(mat)[0]
+            finally:
+                # restore the original stdout
+                sys.stdout = orig_stdout
 
             for result in results:
                 coords = result.boxes.xyxy
