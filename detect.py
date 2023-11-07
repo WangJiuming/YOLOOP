@@ -56,11 +56,13 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
 
     print('[info] scanning the contact matrix')
 
-    # save the current stdout
+    # save the current stdout and stderr
     orig_stdout = sys.stdout
+    orig_stderr = sys.stderr
 
     # redirect stdout to null
     sys.stdout = open(os.devnull, 'w')
+    sys.stderr = open(os.devnull, 'w')
 
     for y_offset in np.arange(0, h - window_size + 1, window_size):
         for x_offset in np.arange(0, w - window_size + 1, window_size):
@@ -75,6 +77,7 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
             finally:
                 # restore the original stdout
                 sys.stdout = orig_stdout
+                sys.stderr = orig_stderr
 
             for result in results:
                 coords = result.boxes.xyxy
