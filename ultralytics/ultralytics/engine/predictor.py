@@ -311,7 +311,8 @@ class BasePredictor:
 
             # Print time (inference-only)
             if self.args.verbose:
-                LOGGER.info(f'{s}{profilers[1].dt * 1E3:.1f}ms')
+                pass
+                # LOGGER.info(f'{s}{profilers[1].dt * 1E3:.1f}ms')
 
         # Release assets
         if isinstance(self.vid_writer[-1], cv2.VideoWriter):
@@ -320,12 +321,12 @@ class BasePredictor:
         # Print results
         if self.args.verbose and self.seen:
             t = tuple(x.t / self.seen * 1E3 for x in profilers)  # speeds per image
-            LOGGER.info(f'Speed: %.1fms preprocess, %.1fms inference, %.1fms postprocess per image at shape '
-                        f'{(1, 3, *im.shape[2:])}' % t)
+            # LOGGER.info(f'Speed: %.1fms preprocess, %.1fms inference, %.1fms postprocess per image at shape '
+            #             f'{(1, 3, *im.shape[2:])}' % t)
         if self.args.save or self.args.save_txt or self.args.save_crop:
             nl = len(list(self.save_dir.glob('labels/*.txt')))  # number of labels
             s = f"\n{nl} label{'s' * (nl > 1)} saved to {self.save_dir / 'labels'}" if self.args.save_txt else ''
-            LOGGER.info(f"Results saved to {colorstr('bold', self.save_dir)}{s}")
+            # LOGGER.info(f"Results saved to {colorstr('bold', self.save_dir)}{s}")
 
         self.run_callbacks('on_predict_end')
 
