@@ -91,11 +91,11 @@ class Model:
         if not suffix and Path(model).stem in GITHUB_ASSET_STEMS:
             model, suffix = Path(model).with_suffix('.pt'), '.pt'  # add suffix, i.e. yolov8n -> yolov8n.pt
         if suffix in ('.yaml', '.yml'):
-            print('[debug] model.py __init__(): creating a new model')
+            # print('[debug] model.py __init__(): creating a new model')
             self._new(model, task)
         else:
-            print('[debug] model.py __init__(): loading an existing model')
-            print(f'[debug] model.py __init__(): model path: {model}')
+            # print('[debug] model.py __init__(): loading an existing model')
+            # print(f'[debug] model.py __init__(): model path: {model}')
             self._load(model, task)
 
     def __call__(self, source=None, stream=False, **kwargs):
@@ -254,10 +254,10 @@ class Model:
         if len and hasattr(self.predictor, 'set_prompts'):
             self.predictor.set_prompts(prompts)
         
-        print(f'[debug] model.py predict(): calling self.predictor, which is {self.predictor}')
+        # print(f'[debug] model.py predict(): calling self.predictor, which is {self.predictor}')
         if self.amp_check:
             self.predictor.amp_check = True
-        print(f'[debug] model.py predict(): predictor\'s amp_check attribute is {self.predictor.amp_check}')
+        # print(f'[debug] model.py predict(): predictor\'s amp_check attribute is {self.predictor.amp_check}')
         return self.predictor.predict_cli(source=source) if is_cli else self.predictor(source=source, stream=stream)
 
     def track(self, source=None, stream=False, persist=False, **kwargs):

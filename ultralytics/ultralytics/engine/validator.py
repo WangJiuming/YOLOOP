@@ -205,15 +205,16 @@ class BaseValidator:
             results = {**stats, **trainer.label_loss_items(self.loss.cpu() / len(self.dataloader), prefix='val')}
             return {k: round(float(v), 5) for k, v in results.items()}  # return results as 5 decimal place floats
         else:
-            LOGGER.info('Speed: %.1fms preprocess, %.1fms inference, %.1fms loss, %.1fms postprocess per image' %
-                        tuple(self.speed.values()))
+            # LOGGER.info('Speed: %.1fms preprocess, %.1fms inference, %.1fms loss, %.1fms postprocess per image' %
+            #             tuple(self.speed.values()))
             if self.args.save_json and self.jdict:
                 with open(str(self.save_dir / 'predictions.json'), 'w') as f:
                     LOGGER.info(f'Saving {f.name}...')
                     json.dump(self.jdict, f)  # flatten and save
                 stats = self.eval_json(stats)  # update stats
             if self.args.plots or self.args.save_json:
-                LOGGER.info(f"Results saved to {colorstr('bold', self.save_dir)}")
+                pass
+                # LOGGER.info(f"Results saved to {colorstr('bold', self.save_dir)}")
             return stats
 
     def match_predictions(self, pred_classes, true_classes, iou):

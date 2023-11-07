@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     # load the contact map
     cm_path = args.cm
-    resolution = args.r
+    resolution = args.resolution
     print(f'[info] input path: {cm_path}, resolution: {resolution}')
 
     if '.mcool' in cm_path:
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     chr_list = cm_obj.chromnames
     if 'MT' in chr_list:
         chr_list.remove('MT')
-    print('[debug] chromosome list: ', chr_list)
+    print('[info] chromosome list: ', chr_list)
 
     genome_cm = cm_obj.matrix(balance=args.balance)
 
@@ -137,11 +137,11 @@ if __name__ == '__main__':
     all_results = []
 
     for chr_name in chr_list:
-        chrom = genome_cm.fetch(chr_name)  # get the contact matrix for this chromosome
+        chr_cm = genome_cm.fetch(chr_name)  # get the contact matrix for this chromosome
 
-        results = sliding_window(model, chrom, 512, args.t)
+        results = sliding_window(model, chr_cm, 512, args.thresh)
 
-        print(f'[info] number of predictions for chromosome {chrom.replace("chr", "")}: {len(results)}')
+        print(f'[info] number of predictions for chromosome {chr_name.replace("chr", "")}: {len(results)}')
 
         results = [[chr_name] + result for result in results]
 
