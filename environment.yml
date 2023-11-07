@@ -113,4 +113,3 @@ dependencies:
       - tzdata==2023.3
       - ultralytics==8.0.207
       - zipp==3.17.0
-prefix: /data/jmwang/.anaconda/envs/yoloop
