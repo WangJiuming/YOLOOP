@@ -4,7 +4,7 @@ from pathlib import Path
 import argparse
 
 import torch.cuda
-
+from tqdm import tqdm
 import numpy as np
 import cooler
 
@@ -38,8 +38,8 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
     use a sliding window to detect loops from a chromosome's contact matrix
 
     Args:
-        model (pytorch model object): pretrained YOLO model
-        cm (numpy array): contact matrix for a chromosome
+        model (object): pretrained YOLO model
+        cm (array): contact matrix for a chromosome
         window_size (int): size of the sliding window
         conf_thresh (float): threshold for the detection confidence score
         restrict (bool): whether to detect only around the main diagonal, True by default
@@ -51,12 +51,11 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
 
     # reverse order of width and height from numpy array
     w, h = cm.shape[1], cm.shape[0]
-    print(f'[info] width: {w}, height: {h}, window size: {window_size}')
+    print(f'[debug] width: {w}, height: {h}, window size: {window_size}')
     diag_limit = window_size * 5
 
-    print('[info] scanning the contact matrix ...')
-
-    for y_offset in np.arange(0, h - window_size + 1, window_size):
+    print('[info] sliding through the contact matrix')
+    for y_offset in tqdm(np.arange(0, h - window_size + 1, window_size)):
         for x_offset in np.arange(0, w - window_size + 1, window_size):
             # skip the edges if restricting the detection to the diagonal parts only
             if restrict and abs(x_offset - y_offset) > diag_limit:
@@ -71,19 +70,14 @@ def sliding_window(model, cm, window_size, conf_thresh, restrict=True):
                 confs = result.boxes.conf
 
                 for coord, conf in zip(coords, confs):
-                    # coord = [bottom_left_x, bottom_left_y, upper_right_x, upper_right_y, confidence, class]
-                    # threshold by the prediction confidence score
-                    if conf < conf_thresh:
-                        continue
 
-                    # absolute loop coordinates
                     loop_x = int((coord[0] + coord[2]) / 2) + x_offset
                     loop_y = int((coord[1] + coord[3]) / 2) + y_offset
 
                     # reverse to numpy-order for easy processing later
                     preds.append([loop_y, loop_x, conf.item()])
 
-        return preds
+    return preds
 
 
 if __name__ == '__main__':
