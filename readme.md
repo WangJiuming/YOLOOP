@@ -1,4 +1,4 @@
-# YOLOOP: A Fast and Adaptive Detection Framework for Genome-wide Chromatin Loop Mapping from Hi-C data
+# A Fast and Adaptive Detection Framework for Genome-wide Chromatin Loop Mapping from Hi-C data
 
 ![header](header.png)
 
