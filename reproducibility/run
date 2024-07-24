@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -ex
+
+# Example on running K562 cell Hi-C Map
+
+# This is the master script for the capsule. When you click "Reproducible Run", the code in this file will execute
+python detect.py --cm /data/k562.mcool --r 10000 --model /code/models/k562_hic_10kb.pt --out /results 

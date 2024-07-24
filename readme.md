@@ -86,3 +86,6 @@ chr1	610000	620000	chr1	37880000	37890000	0.760546875
 
 The above example consists of seven columns. The first three columns indicate the x-coordiante of the loop and the following three columns indicate the y-coordinate. The last column shows the confidence level of the prediction.
 
+### Motif logo analysis
+
+Reproducible run for custom scripts can be found in reproducibility/
