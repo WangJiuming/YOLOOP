@@ -88,4 +88,6 @@ The above example consists of seven columns. The first three columns indicate th
 
 ### Motif logo analysis
 
-Reproducible run for custom scripts can be found in reproducibility/
+Reproducible run for custom scripts can be found under ```reproducibility/```.
+
+
