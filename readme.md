@@ -93,7 +93,7 @@ Reproducible run for custom scripts can be found under ```reproducibility/```.
 
 ## 3. Training your own model with YOLOOP
 
-We provide an example for you to train your own detection model with YOLOOP. We use the K562 cell line with CTCF-supported loops. 
+We provide an example for you to train your own detection model with YOLOOP. We use the [K562](https://data.4dnucleome.org/files-processed/4DNFITUOMFUQ/) cell line with [CTCF-supported loops](https://github.com/WangJiuming/YOLOOP/blob/main/reproducibility/ground_truth/ctcf_k562.bedpe). 
 
 ### 3.1 Training Data Preparation
 
@@ -101,9 +101,8 @@ run
 ```bash
 gen_train_data.sh
 ```
-in which you need to provide the path for the Hi-c contact file in .mcool format in  ```data_dir```, and the .bedpe file for positive chromatin interaction in ```loop_dir```. For reference, the ground truth positive interactions we use is in [reproducibility/ground_truth](https://github.com/WangJiuming/YOLOOP/tree/main/reproducibility/ground_truth)
-The 
-It will take several minutes depending on the size of the .mcool file.
+in which you need to provide the path for the Hi-C contact file in ```.mcool``` format in  ```data_dir```, and the ```.bedpe``` file for positive chromatin interaction in ```loop_dir```. For reference, the ground truth positive interactions we use is in [reproducibility/ground_truth](https://github.com/WangJiuming/YOLOOP/tree/main/reproducibility/ground_truth)
+Then it will take several minutes depending on the size of the ```.mcool``` file.
 After that, you will get a data folder containing the training samples with certain binding factors.
 
 ```
