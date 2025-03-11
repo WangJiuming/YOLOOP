@@ -1,0 +1,17 @@
+{
+  "paths": {
+    "dataset": "ctcf_k562_10kb_25.yaml",
+    "model": "yolov8n.yaml"
+  },
+
+  "params": {
+    "epochs": 20,
+    "save period": 5,
+    "device": [1],
+    "batch size": 16,
+    "window size": 512,
+    "box size": 25,
+    "resolution": 10000,
+    "project name": "k562_ctcf"
+  }
+}

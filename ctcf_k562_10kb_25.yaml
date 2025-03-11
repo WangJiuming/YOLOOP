@@ -1,0 +1,16 @@
+# Train/val/test sets as
+# # 1) dir: path/to/images,
+# # 2) file: path/to/images.txt, or
+# # 3) list: [path/to/images, path/to/images, ..]
+
+# Replace with your own data dir from gen_train_data.sh
+path: /Dataset/YOLOOP_Train/CTCF/k562/  # dataset root dir
+train: images/train  # train images (relative to 'path')
+val: images/val  # val images (relative to 'path')
+test:  # test images (optional)
+ch: 1  # one-channel gray-scale image
+
+# Classes
+names:
+   0: loop
+
