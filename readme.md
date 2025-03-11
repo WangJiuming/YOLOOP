@@ -122,10 +122,11 @@ Take K562 cell line as an example, we now train a YOLOOP model on the K562 cell 
 CUDA_VISIBLE_DEVICES=0 python train.py -f config_train_k562.json
 ```
 
-### Complete Data and Training
+### 3.3 Train on Multiple Cell Lines and Self-Defined Training
 
 You are able to train YOLOOP on multiple cell lines with .mcool files on [GM12878](https://data.4dnucleome.org/files-processed/4DNFIXP4QG5B/), [IMR-90](https://data.4dnucleome.org/files-processed/4DNFIJTOIGOI/), [HCT116](https://data.4dnucleome.org/files-processed/4DNFILP99QJS/), and [K562](https://data.4dnucleome.org/files-processed/4DNFITUOMFUQ/). For those who wish to train on your own ```.hic``` file as raw contact matrix, you are able to convert them into ```.mcool``` file using [hic2cool](https://pypi.org/project/hic2cool/0.4.0/). The detection framework should be trained with multiple binding factor annotations as [ground_truth](https://github.com/WangJiuming/YOLOOP/tree/main/reproducibility/ground_truth)
 The data folder should appear as follows after conversion.
+You are able to modify ```config_train_{your cell line}.json```  and replace ```ctcf_k562_10kb_25.yaml``` with self-defined parameters such as```{bf}_{cell}_{resolution}_{boxsize}.yaml```
 ```angular2html
 .├── CTCF
 │   ├── gm12878
